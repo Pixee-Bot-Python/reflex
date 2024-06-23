@@ -18,7 +18,7 @@ from reflex.vars import BaseVar, Var
 from .base import BaseHTML
 
 FORM_DATA = Var.create("form_data", _var_is_string=False)
-HANDLE_SUBMIT_JS_JINJA2 = Environment().from_string(
+HANDLE_SUBMIT_JS_JINJA2 = Environment(autoescape=True).from_string(
     """
     const handleSubmit_{{ handle_submit_unique_name }} = useCallback((ev) => {
         const $form = ev.target
