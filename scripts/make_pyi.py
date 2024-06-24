@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 from reflex.utils.pyi_generator import PyiGenerator, _relative_to_pwd
+from security import safe_command
 
 logger = logging.getLogger("pyi_generator")
 
@@ -25,7 +26,7 @@ def _git_diff(args: list[str]) -> str:
         The output of the git diff command.
     """
     cmd = ["git", "diff", "--no-color", *args]
-    return subprocess.run(cmd, capture_output=True, encoding="utf-8").stdout
+    return safe_command.run(subprocess.run, cmd, capture_output=True, encoding="utf-8").stdout
 
 
 def _git_changed_files(args: list[str] | None = None) -> list[Path]:
