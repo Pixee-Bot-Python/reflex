@@ -9,7 +9,6 @@ import dis
 import functools
 import inspect
 import json
-import random
 import re
 import string
 import sys
@@ -46,6 +45,7 @@ from reflex.utils.imports import (
     parse_imports,
 )
 from reflex.utils.types import override
+import secrets
 
 if TYPE_CHECKING:
     from reflex.state import BaseState
@@ -111,7 +111,7 @@ def get_unique_variable_name() -> str:
     Returns:
         The unique variable name.
     """
-    name = "".join([random.choice(string.ascii_lowercase) for _ in range(8)])
+    name = "".join([secrets.choice(string.ascii_lowercase) for _ in range(8)])
     if name not in USED_VARIABLES:
         USED_VARIABLES.add(name)
         return name

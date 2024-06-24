@@ -9,7 +9,6 @@ import inspect
 import json
 import os
 import platform
-import random
 import re
 import shutil
 import stat
@@ -37,6 +36,7 @@ from reflex.compiler import templates
 from reflex.config import Config, get_config
 from reflex.utils import console, path_ops, processes
 from reflex.utils.format import format_library_name
+import secrets
 
 CURRENTLY_INSTALLING_NODE = False
 
@@ -585,7 +585,7 @@ def init_reflex_json(project_hash: int | None):
         console.debug(f"Project hash is already set to {project_hash}.")
     else:
         # Get a random project hash.
-        project_hash = random.getrandbits(128)
+        project_hash = secrets.SystemRandom().getrandbits(128)
         console.debug(f"Setting project hash to {project_hash}.")
 
     # Write the hash and version to the reflex json file.
@@ -1068,7 +1068,7 @@ def ensure_reflex_installation_id() -> Optional[int]:
                 pass
 
         if installation_id is None:
-            installation_id = random.getrandbits(128)
+            installation_id = secrets.SystemRandom().getrandbits(128)
             with open(installation_id_file, "w") as f:
                 f.write(str(installation_id))
         # If we get here, installation_id is definitely set
