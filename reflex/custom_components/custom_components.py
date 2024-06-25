@@ -20,6 +20,7 @@ from reflex import constants
 from reflex.config import get_config
 from reflex.constants import CustomComponents
 from reflex.utils import console
+from security import safe_command
 
 config = get_config()
 custom_components_cli = typer.Typer()
@@ -426,7 +427,7 @@ def _run_commands_in_subprocess(cmds: list[str]) -> bool:
     """
     console.debug(f"Running command: {' '.join(cmds)}")
     try:
-        result = subprocess.run(cmds, capture_output=True, text=True, check=True)
+        result = safe_command.run(subprocess.run, cmds, capture_output=True, text=True, check=True)
         console.debug(result.stdout)
         return True
     except subprocess.CalledProcessError as cpe:
