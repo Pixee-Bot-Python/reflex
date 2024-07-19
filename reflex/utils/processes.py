@@ -416,7 +416,7 @@ def execute_command_and_return_output(command) -> str | None:
         The output of the command.
     """
     try:
-        return subprocess.check_output(command, shell=True).decode().strip()
+        return subprocess.check_output(command, shell=False).decode().strip()
     except subprocess.SubprocessError as err:
         console.error(
             f"The command `{command}` failed with error: {err}. This will return None."
